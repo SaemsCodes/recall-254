@@ -86,10 +86,7 @@ export default async function handler(req: Request): Promise<Response> {
     console.error('Voter verification error:', error);
     
     // Return mock verification for development
-    return simulateVoterVerification(
-      req.body?.nationalId || 'unknown',
-      req.body?.constituency || 'unknown'
-    );
+    return simulateVoterVerification('unknown', 'unknown');
   }
 }
 

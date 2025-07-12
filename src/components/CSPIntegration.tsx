@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -121,7 +120,7 @@ const CSPIntegration = () => {
         try {
           // Simulate health check API call
           const healthCheck = await fetch(`/api/csp-health/${provider.id}`);
-          const status = healthCheck.ok ? 'online' : 'offline';
+          const status: 'online' | 'offline' | 'maintenance' = healthCheck.ok ? 'online' : 'offline';
           
           return {
             ...provider,
