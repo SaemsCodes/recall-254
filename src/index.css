@@ -3,95 +3,96 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* Definition of the design system with green-focused color palette */
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 142 71% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 142 71% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 142 71% 8%;
 
     --primary: 142 71% 20%; /* Kenyan flag green */
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 142 30% 94%;
+    --secondary-foreground: 142 71% 12%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 142 30% 94%;
+    --muted-foreground: 142 20% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 142 30% 94%;
+    --accent-foreground: 142 71% 12%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 142 71% 20%; /* Kenyan flag green */
+    --border: 142 30% 88%;
+    --input: 142 30% 88%;
+    --ring: 142 71% 20%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-background: 142 30% 98%;
+    --sidebar-foreground: 142 20% 26%;
+    --sidebar-primary: 142 71% 20%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 142 30% 95%;
+    --sidebar-accent-foreground: 142 71% 12%;
+    --sidebar-border: 142 30% 88%;
+    --sidebar-ring: 142 71% 20%;
 
-    /* Kenyan theme colors */
+    /* Kenyan theme colors - green palette focused */
     --kenya-green: 142 71% 20%;
-    --kenya-red: 0 75% 40%;
+    --kenya-green-light: 142 50% 60%;
+    --kenya-green-dark: 142 71% 15%;
+    --kenya-sage: 140 20% 60%;
+    --kenya-mint: 145 60% 85%;
+    --kenya-forest: 140 80% 10%;
     --kenya-white: 0 0% 100%;
-    --kenya-black: 0 0% 0%;
+    --kenya-charcoal: 0 0% 15%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 142 71% 4%;
+    --foreground: 142 30% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 142 71% 4%;
+    --card-foreground: 142 30% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 142 71% 4%;
+    --popover-foreground: 142 30% 98%;
 
-    --primary: 142 71% 40%; /* Lighter green for dark mode */
+    --primary: 142 71% 40%;
     --primary-foreground: 0 0% 0%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 142 32% 17%;
+    --secondary-foreground: 142 30% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 142 32% 17%;
+    --muted-foreground: 142 20% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 142 32% 17%;
+    --accent-foreground: 142 30% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 142 32% 17%;
+    --input: 142 32% 17%;
     --ring: 142 71% 40%;
     
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 142 71% 8%;
+    --sidebar-foreground: 142 30% 95%;
+    --sidebar-primary: 142 71% 40%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 142 32% 15%;
+    --sidebar-accent-foreground: 142 30% 95%;
+    --sidebar-border: 142 32% 15%;
+    --sidebar-ring: 142 71% 40%;
   }
 }
 
@@ -103,41 +104,45 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  /* Custom scrollbar */
+  /* Custom scrollbar - green theme */
   ::-webkit-scrollbar {
     width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100;
+    @apply bg-green-50;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-400 rounded-full;
+    @apply bg-green-300 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-600;
+    @apply bg-green-400;
   }
 }
 
 @layer components {
-  /* Kenyan flag gradient */
-  .bg-kenya-flag {
-    background: linear-gradient(to right, 
+  /* Green gradient backgrounds */
+  .bg-kenya-gradient {
+    background: linear-gradient(135deg, 
       hsl(var(--kenya-green)) 0%, 
-      hsl(var(--kenya-green)) 25%, 
-      hsl(var(--kenya-red)) 25%, 
-      hsl(var(--kenya-red)) 50%, 
-      hsl(var(--kenya-white)) 50%, 
-      hsl(var(--kenya-white)) 75%, 
-      hsl(var(--kenya-black)) 75%, 
-      hsl(var(--kenya-black)) 100%
+      hsl(var(--kenya-green-light)) 50%, 
+      hsl(var(--kenya-mint)) 100%
     );
   }
   
+  .bg-forest-gradient {
+    background: linear-gradient(135deg, 
+      hsl(var(--kenya-forest)) 0%, 
+      hsl(var(--kenya-green)) 100%
+    );
+  }
+  
+  /* Green color utilities */
   .kenya-green {
     color: hsl(var(--kenya-green));
   }
@@ -146,106 +151,111 @@ All colors MUST be HSL.
     background-color: hsl(var(--kenya-green));
   }
   
-  .kenya-red {
-    color: hsl(var(--kenya-red));
+  .kenya-sage {
+    color: hsl(var(--kenya-sage));
   }
   
-  .bg-kenya-red {
-    background-color: hsl(var(--kenya-red));
+  .bg-kenya-sage {
+    background-color: hsl(var(--kenya-sage));
   }
   
-  .kenya-black {
-    color: hsl(var(--kenya-black));
+  .kenya-charcoal {
+    color: hsl(var(--kenya-charcoal));
   }
   
-  .bg-kenya-black {
-    background-color: hsl(var(--kenya-black));
+  .bg-kenya-charcoal {
+    background-color: hsl(var(--kenya-charcoal));
   }
   
-  /* Interactive elements */
+  /* Interactive elements with green theme */
   .hover-lift {
-    @apply transition-transform duration-200 hover:scale-105 hover:shadow-lg;
+    @apply transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg;
   }
   
+  .glass-effect {
+    @apply bg-white/70 backdrop-blur-md border border-green-100/50;
+  }
+  
+  .ghost-button {
+    @apply bg-transparent border border-green-200/50 text-green-700 hover:bg-green-50 hover:border-green-300 transition-all duration-200;
+  }
+  
+  /* Status indicators with green theme */
   .status-indicator {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
   }
   
-  .status-online {
-    @apply bg-green-100 text-green-800;
+  .status-success {
+    @apply bg-green-100 text-green-800 border border-green-200;
   }
   
-  .status-offline {
-    @apply bg-red-100 text-red-800;
+  .status-warning {
+    @apply bg-yellow-100 text-yellow-800 border border-yellow-200;
   }
   
   .status-pending {
-    @apply bg-yellow-100 text-yellow-800;
+    @apply bg-green-50 text-green-600 border border-green-200;
   }
   
-  /* Legal elements styling */
+  /* Legal elements styling with green theme */
   .legal-card {
-    @apply border-l-4 border-primary bg-primary/5 p-4 rounded-r-lg;
+    @apply border-l-4 border-green-500 bg-green-50/30 p-4 rounded-r-lg backdrop-blur-sm;
   }
   
   .legal-text {
-    @apply font-mono text-sm leading-relaxed;
+    @apply font-mono text-sm leading-relaxed text-green-900;
   }
   
   .constitutional-requirement {
-    @apply bg-primary/10 border border-primary/20 rounded-lg p-3;
+    @apply bg-green-50/50 border border-green-200/50 rounded-lg p-3 backdrop-blur-sm;
   }
   
-  /* Form elements */
+  /* Form elements with green theme */
   .form-field {
     @apply space-y-2;
   }
   
   .form-label {
-    @apply text-sm font-medium text-gray-700;
+    @apply text-sm font-medium text-green-800;
   }
   
   .form-input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary;
+    @apply w-full px-3 py-2 border border-green-200 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 bg-white/50;
   }
   
-  /* Card variations */
+  /* Card variations with green theme */
   .card-hover {
-    @apply transition-all duration-200 hover:shadow-md hover:border-primary/30;
+    @apply transition-all duration-200 hover:shadow-md hover:border-green-300/50;
   }
   
   .card-success {
-    @apply border-green-200 bg-green-50;
+    @apply border-green-200 bg-green-50/30;
   }
   
   .card-warning {
-    @apply border-yellow-200 bg-yellow-50;
+    @apply border-yellow-200 bg-yellow-50/30;
   }
   
-  .card-error {
-    @apply border-red-200 bg-red-50;
-  }
-  
-  /* Compliance indicators */
+  /* Compliance indicators with green theme */
   .compliance-high {
-    @apply text-green-600 bg-green-100 border-green-200;
+    @apply text-green-700 bg-green-100 border-green-200;
   }
   
   .compliance-medium {
-    @apply text-yellow-600 bg-yellow-100 border-yellow-200;
+    @apply text-green-600 bg-green-50 border-green-200;
   }
   
   .compliance-low {
-    @apply text-red-600 bg-red-100 border-red-200;
+    @apply text-yellow-700 bg-yellow-100 border-yellow-200;
   }
   
   /* Constitutional compliance styling */
   .constitutional-banner {
-    @apply bg-primary text-primary-foreground px-4 py-2 text-sm font-medium;
+    @apply bg-green-600 text-white px-4 py-2 text-sm font-medium;
   }
   
   .legal-requirements-grid {
-    @apply grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-primary/5 rounded-lg;
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-green-50/30 rounded-lg backdrop-blur-sm;
   }
   
   .verification-badge {
@@ -253,28 +263,25 @@ All colors MUST be HSL.
   }
   
   .verification-badge.iebc {
-    @apply bg-blue-100 text-blue-800;
-  }
-  
-  .verification-badge.id {
     @apply bg-green-100 text-green-800;
   }
   
-  /* Four-Eyes verification styling */
-  .dual-verification {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-6 p-6 border border-primary/20 rounded-lg;
+  .verification-badge.id {
+    @apply bg-green-200 text-green-900;
   }
   
-  .verification-method {
-    @apply p-4 border rounded-lg;
+  /* Modern ghost effects */
+  .ghost-card {
+    @apply bg-white/60 backdrop-blur-sm border border-green-100/50 rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
   }
   
-  .verification-method.iebc {
-    @apply border-blue-200 bg-blue-50/50;
+  .ghost-dropdown {
+    @apply bg-white/90 backdrop-blur-md border border-green-100/50 rounded-lg shadow-lg;
   }
   
-  .verification-method.national-db {
-    @apply border-green-200 bg-green-50/50;
+  /* Minimalistic hover effects */
+  .minimal-hover {
+    @apply transition-all duration-200 hover:bg-green-50/50 hover:scale-[1.01];
   }
 }
 
@@ -284,7 +291,7 @@ All colors MUST be HSL.
     text-wrap: balance;
   }
   
-  /* Animation utilities */
+  /* Animation utilities with green theme */
   .animate-in {
     animation: fade-in 0.3s ease-out;
   }
@@ -298,42 +305,94 @@ All colors MUST be HSL.
     aspect-ratio: 16 / 9;
   }
   
-  /* Custom focus states */
+  /* Custom focus states with green theme */
   .focus-green {
-    @apply focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none;
+    @apply focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none;
   }
   
-  /* Kenya-specific utilities */
+  /* Green-specific utilities */
   .kenyan-gradient {
-    background: linear-gradient(135deg, hsl(var(--kenya-green)), hsl(var(--kenya-red)));
+    background: linear-gradient(135deg, hsl(var(--kenya-green)), hsl(var(--kenya-sage)));
   }
   
   .constitutional-text {
-    @apply font-serif text-gray-800 leading-relaxed;
+    @apply font-serif text-green-900 leading-relaxed;
+  }
+  
+  /* Modern shadow utilities */
+  .shadow-green {
+    box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.1), 0 2px 4px -1px rgba(34, 197, 94, 0.06);
+  }
+  
+  .shadow-green-lg {
+    box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.1), 0 4px 6px -2px rgba(34, 197, 94, 0.05);
   }
 }
 
-/* Constitutional styling for legal documents */
-.legal-document {
-  @apply bg-white border border-gray-200 rounded-lg p-6 shadow-sm;
+/* Green-themed animations */
+@keyframes pulse-green {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+  }
 }
 
-.legal-document h1,
-.legal-document h2,
-.legal-document h3 {
-  @apply text-primary font-bold mb-4;
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.legal-document blockquote {
-  @apply border-l-4 border-primary pl-4 italic text-gray-700 my-4;
+/* Constitutional compliance indicators with green theme */
+.compliance-indicator {
+  @apply relative inline-flex items-center justify-center w-4 h-4 rounded-full;
 }
 
-.legal-document .article-number {
-  @apply font-bold text-primary;
+.compliance-indicator.met {
+  @apply bg-green-500;
 }
 
-.legal-document .section-number {
-  @apply font-semibold text-gray-700;
+.compliance-indicator.pending {
+  @apply bg-green-300;
+}
+
+.compliance-indicator.failed {
+  @apply bg-yellow-500;
+}
+
+.compliance-indicator::after {
+  content: '';
+  @apply absolute inset-0 rounded-full animate-ping;
+}
+
+.compliance-indicator.met::after {
+  @apply bg-green-400;
+}
+
+.compliance-indicator.pending::after {
+  @apply bg-green-300;
+}
+
+.compliance-indicator.failed::after {
+  @apply bg-yellow-400;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 142 71% 30%;
+    --ring: 142 71% 25%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Print styles for legal documents */
@@ -354,70 +413,7 @@ All colors MUST be HSL.
     page-break-inside: avoid;
   }
   
-  .legal-document {
-    @apply shadow-none border-0;
+  .legal-card, .ghost-card {
+    @apply shadow-none border border-green-300;
   }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  :root {
-    --border: 0 0% 50%;
-    --ring: 142 71% 30%;
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Kenyan-specific animations */
-@keyframes kenya-flag-wave {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-2px) rotate(1deg); }
-  50% { transform: translateY(0px) rotate(0deg); }
-  75% { transform: translateY(2px) rotate(-1deg); }
-}
-
-.kenya-flag-animation {
-  animation: kenya-flag-wave 3s ease-in-out infinite;
-}
-
-/* Constitutional compliance indicators */
-.compliance-indicator {
-  @apply relative inline-flex items-center justify-center w-4 h-4 rounded-full;
-}
-
-.compliance-indicator.met {
-  @apply bg-green-500;
-}
-
-.compliance-indicator.pending {
-  @apply bg-yellow-500;
-}
-
-.compliance-indicator.failed {
-  @apply bg-red-500;
-}
-
-.compliance-indicator::after {
-  content: '';
-  @apply absolute inset-0 rounded-full animate-ping;
-}
-
-.compliance-indicator.met::after {
-  @apply bg-green-400;
-}
-
-.compliance-indicator.pending::after {
-  @apply bg-yellow-400;
-}
-
-.compliance-indicator.failed::after {
-  @apply bg-red-400;
 }
