@@ -1,11 +1,8 @@
-
 import React from 'react';
 import { Shield, Lock, Award, FileCheck } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
-
 const ConstitutionalHeader = () => {
-  return (
-    <>
+  return <>
       {/* Constitutional Banner */}
       <div className="bg-kenya-green text-white py-2 px-4">
         <div className="container mx-auto flex items-center justify-between text-sm">
@@ -42,7 +39,7 @@ const ConstitutionalHeader = () => {
                 <Shield className="w-10 h-10 text-kenya-green" />
               </div>
               <div>
-                <h1 className="text-4xl font-bold">PetaRecall</h1>
+                <h1 className="text-4xl font-bold">Recall254</h1>
                 <p className="text-green-100 text-lg">Your Constitution. Your Power.</p>
                 <p className="text-sm text-gray-200">Digital Democracy • Legally Compliant • Secure</p>
               </div>
@@ -73,8 +70,6 @@ const ConstitutionalHeader = () => {
           </div>
         </div>
       </div>
-    </>
-  );
+    </>;
 };
-
 export default ConstitutionalHeader;
