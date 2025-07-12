@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,8 +18,8 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 142 71% 20%; /* Kenyan flag green */
+    --primary-foreground: 0 0% 98%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -34,25 +35,24 @@ All colors MUST be HSL.
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 142 71% 20%; /* Kenyan flag green */
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Kenyan theme colors */
+    --kenya-green: 142 71% 20%;
+    --kenya-red: 0 75% 40%;
+    --kenya-white: 0 0% 100%;
+    --kenya-black: 0 0% 0%;
   }
 
   .dark {
@@ -65,8 +65,8 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 142 71% 40%; /* Lighter green for dark mode */
+    --primary-foreground: 0 0% 0%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -82,7 +82,8 @@ All colors MUST be HSL.
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 142 71% 40%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -101,5 +102,165 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+}
+
+@layer components {
+  /* Kenyan flag gradient */
+  .bg-kenya-flag {
+    background: linear-gradient(to right, 
+      hsl(var(--kenya-green)) 0%, 
+      hsl(var(--kenya-green)) 25%, 
+      hsl(var(--kenya-red)) 25%, 
+      hsl(var(--kenya-red)) 50%, 
+      hsl(var(--kenya-white)) 50%, 
+      hsl(var(--kenya-white)) 75%, 
+      hsl(var(--kenya-black)) 75%, 
+      hsl(var(--kenya-black)) 100%
+    );
+  }
+  
+  /* Interactive elements */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:scale-105 hover:shadow-lg;
+  }
+  
+  .status-indicator {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .status-online {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .status-offline {
+    @apply bg-red-100 text-red-800;
+  }
+  
+  .status-pending {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+  
+  /* Form elements */
+  .form-field {
+    @apply space-y-2;
+  }
+  
+  .form-label {
+    @apply text-sm font-medium text-gray-700;
+  }
+  
+  .form-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500;
+  }
+  
+  /* Card variations */
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-md hover:border-green-300;
+  }
+  
+  .card-success {
+    @apply border-green-200 bg-green-50;
+  }
+  
+  .card-warning {
+    @apply border-yellow-200 bg-yellow-50;
+  }
+  
+  .card-error {
+    @apply border-red-200 bg-red-50;
+  }
+  
+  /* Compliance indicators */
+  .compliance-high {
+    @apply text-green-600 bg-green-100 border-green-200;
+  }
+  
+  .compliance-medium {
+    @apply text-yellow-600 bg-yellow-100 border-yellow-200;
+  }
+  
+  .compliance-low {
+    @apply text-red-600 bg-red-100 border-red-200;
+  }
+}
+
+@layer utilities {
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Animation utilities */
+  .animate-in {
+    animation: fade-in 0.3s ease-out;
+  }
+  
+  .animate-pulse-green {
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+  
+  /* Layout utilities */
+  .aspect-map {
+    aspect-ratio: 16 / 9;
+  }
+  
+  /* Custom focus states */
+  .focus-green {
+    @apply focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none;
+  }
+}
+
+/* Print styles for legal documents */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break-before {
+    page-break-before: always;
+  }
+  
+  .print-break-after {
+    page-break-after: always;
+  }
+  
+  .print-keep-together {
+    page-break-inside: avoid;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 0 0% 50%;
+    --ring: 142 71% 30%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
