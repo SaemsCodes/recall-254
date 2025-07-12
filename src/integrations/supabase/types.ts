@@ -14,7 +14,280 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_trail: {
+        Row: {
+          action_details: Json
+          action_type: string
+          id: string
+          ip_address: unknown | null
+          petition_id: string | null
+          signature_id: string | null
+          timestamp: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action_details: Json
+          action_type: string
+          id?: string
+          ip_address?: unknown | null
+          petition_id?: string | null
+          signature_id?: string | null
+          timestamp?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action_details?: Json
+          action_type?: string
+          id?: string
+          ip_address?: unknown | null
+          petition_id?: string | null
+          signature_id?: string | null
+          timestamp?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_trail_petition_id_fkey"
+            columns: ["petition_id"]
+            isOneToOne: false
+            referencedRelation: "petitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "audit_trail_signature_id_fkey"
+            columns: ["signature_id"]
+            isOneToOne: false
+            referencedRelation: "signatures"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      evidence_documents: {
+        Row: {
+          created_at: string
+          document_title: string
+          document_type: string
+          file_path: string | null
+          id: string
+          petition_id: string
+          uploaded_by: string | null
+          verification_source: string | null
+          verification_status: string | null
+        }
+        Insert: {
+          created_at?: string
+          document_title: string
+          document_type: string
+          file_path?: string | null
+          id?: string
+          petition_id: string
+          uploaded_by?: string | null
+          verification_source?: string | null
+          verification_status?: string | null
+        }
+        Update: {
+          created_at?: string
+          document_title?: string
+          document_type?: string
+          file_path?: string | null
+          id?: string
+          petition_id?: string
+          uploaded_by?: string | null
+          verification_source?: string | null
+          verification_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evidence_documents_petition_id_fkey"
+            columns: ["petition_id"]
+            isOneToOne: false
+            referencedRelation: "petitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      petitions: {
+        Row: {
+          constituency: string
+          county: string
+          created_at: string
+          created_by: string | null
+          deadline: string
+          description: string
+          evidence_documents: Json | null
+          grounds: string[]
+          id: string
+          mp_name: string
+          signature_target: number
+          status: string
+          updated_at: string
+          ward_target: number
+        }
+        Insert: {
+          constituency: string
+          county: string
+          created_at?: string
+          created_by?: string | null
+          deadline: string
+          description: string
+          evidence_documents?: Json | null
+          grounds: string[]
+          id?: string
+          mp_name: string
+          signature_target: number
+          status?: string
+          updated_at?: string
+          ward_target: number
+        }
+        Update: {
+          constituency?: string
+          county?: string
+          created_at?: string
+          created_by?: string | null
+          deadline?: string
+          description?: string
+          evidence_documents?: Json | null
+          grounds?: string[]
+          id?: string
+          mp_name?: string
+          signature_target?: number
+          status?: string
+          updated_at?: string
+          ward_target?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          constituency: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          is_verified: boolean | null
+          national_id: string | null
+          phone_number: string | null
+          updated_at: string
+          verification_data: Json | null
+          ward: string | null
+        }
+        Insert: {
+          constituency?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          is_verified?: boolean | null
+          national_id?: string | null
+          phone_number?: string | null
+          updated_at?: string
+          verification_data?: Json | null
+          ward?: string | null
+        }
+        Update: {
+          constituency?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          is_verified?: boolean | null
+          national_id?: string | null
+          phone_number?: string | null
+          updated_at?: string
+          verification_data?: Json | null
+          ward?: string | null
+        }
+        Relationships: []
+      }
+      signatures: {
+        Row: {
+          blockchain_hash: string | null
+          constituency: string
+          created_at: string
+          csp_provider: string
+          device_fingerprint: Json | null
+          geolocation: Json | null
+          id: string
+          petition_id: string
+          polling_station: string | null
+          signature_certificate: string | null
+          signature_timestamp: string
+          verification_status: Json
+          voter_id: string
+          voter_name: string
+          ward: string
+        }
+        Insert: {
+          blockchain_hash?: string | null
+          constituency: string
+          created_at?: string
+          csp_provider: string
+          device_fingerprint?: Json | null
+          geolocation?: Json | null
+          id?: string
+          petition_id: string
+          polling_station?: string | null
+          signature_certificate?: string | null
+          signature_timestamp?: string
+          verification_status?: Json
+          voter_id: string
+          voter_name: string
+          ward: string
+        }
+        Update: {
+          blockchain_hash?: string | null
+          constituency?: string
+          created_at?: string
+          csp_provider?: string
+          device_fingerprint?: Json | null
+          geolocation?: Json | null
+          id?: string
+          petition_id?: string
+          polling_station?: string | null
+          signature_certificate?: string | null
+          signature_timestamp?: string
+          verification_status?: Json
+          voter_id?: string
+          voter_name?: string
+          ward?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signatures_petition_id_fkey"
+            columns: ["petition_id"]
+            isOneToOne: false
+            referencedRelation: "petitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wards: {
+        Row: {
+          constituency: string
+          county: string
+          created_at: string
+          id: string
+          registration_target: number | null
+          ward_name: string
+        }
+        Insert: {
+          constituency: string
+          county: string
+          created_at?: string
+          id?: string
+          registration_target?: number | null
+          ward_name: string
+        }
+        Update: {
+          constituency?: string
+          county?: string
+          created_at?: string
+          id?: string
+          registration_target?: number | null
+          ward_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

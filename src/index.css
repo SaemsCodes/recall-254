@@ -138,6 +138,30 @@ All colors MUST be HSL.
     );
   }
   
+  .kenya-green {
+    color: hsl(var(--kenya-green));
+  }
+  
+  .bg-kenya-green {
+    background-color: hsl(var(--kenya-green));
+  }
+  
+  .kenya-red {
+    color: hsl(var(--kenya-red));
+  }
+  
+  .bg-kenya-red {
+    background-color: hsl(var(--kenya-red));
+  }
+  
+  .kenya-black {
+    color: hsl(var(--kenya-black));
+  }
+  
+  .bg-kenya-black {
+    background-color: hsl(var(--kenya-black));
+  }
+  
   /* Interactive elements */
   .hover-lift {
     @apply transition-transform duration-200 hover:scale-105 hover:shadow-lg;
@@ -159,6 +183,19 @@ All colors MUST be HSL.
     @apply bg-yellow-100 text-yellow-800;
   }
   
+  /* Legal elements styling */
+  .legal-card {
+    @apply border-l-4 border-primary bg-primary/5 p-4 rounded-r-lg;
+  }
+  
+  .legal-text {
+    @apply font-mono text-sm leading-relaxed;
+  }
+  
+  .constitutional-requirement {
+    @apply bg-primary/10 border border-primary/20 rounded-lg p-3;
+  }
+  
   /* Form elements */
   .form-field {
     @apply space-y-2;
@@ -169,12 +206,12 @@ All colors MUST be HSL.
   }
   
   .form-input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500;
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary;
   }
   
   /* Card variations */
   .card-hover {
-    @apply transition-all duration-200 hover:shadow-md hover:border-green-300;
+    @apply transition-all duration-200 hover:shadow-md hover:border-primary/30;
   }
   
   .card-success {
@@ -201,6 +238,44 @@ All colors MUST be HSL.
   .compliance-low {
     @apply text-red-600 bg-red-100 border-red-200;
   }
+  
+  /* Constitutional compliance styling */
+  .constitutional-banner {
+    @apply bg-primary text-primary-foreground px-4 py-2 text-sm font-medium;
+  }
+  
+  .legal-requirements-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-primary/5 rounded-lg;
+  }
+  
+  .verification-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .verification-badge.iebc {
+    @apply bg-blue-100 text-blue-800;
+  }
+  
+  .verification-badge.id {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  /* Four-Eyes verification styling */
+  .dual-verification {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6 p-6 border border-primary/20 rounded-lg;
+  }
+  
+  .verification-method {
+    @apply p-4 border rounded-lg;
+  }
+  
+  .verification-method.iebc {
+    @apply border-blue-200 bg-blue-50/50;
+  }
+  
+  .verification-method.national-db {
+    @apply border-green-200 bg-green-50/50;
+  }
 }
 
 @layer utilities {
@@ -225,8 +300,40 @@ All colors MUST be HSL.
   
   /* Custom focus states */
   .focus-green {
-    @apply focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none;
+    @apply focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none;
   }
+  
+  /* Kenya-specific utilities */
+  .kenyan-gradient {
+    background: linear-gradient(135deg, hsl(var(--kenya-green)), hsl(var(--kenya-red)));
+  }
+  
+  .constitutional-text {
+    @apply font-serif text-gray-800 leading-relaxed;
+  }
+}
+
+/* Constitutional styling for legal documents */
+.legal-document {
+  @apply bg-white border border-gray-200 rounded-lg p-6 shadow-sm;
+}
+
+.legal-document h1,
+.legal-document h2,
+.legal-document h3 {
+  @apply text-primary font-bold mb-4;
+}
+
+.legal-document blockquote {
+  @apply border-l-4 border-primary pl-4 italic text-gray-700 my-4;
+}
+
+.legal-document .article-number {
+  @apply font-bold text-primary;
+}
+
+.legal-document .section-number {
+  @apply font-semibold text-gray-700;
 }
 
 /* Print styles for legal documents */
@@ -246,6 +353,10 @@ All colors MUST be HSL.
   .print-keep-together {
     page-break-inside: avoid;
   }
+  
+  .legal-document {
+    @apply shadow-none border-0;
+  }
 }
 
 /* High contrast mode support */
@@ -263,4 +374,50 @@ All colors MUST be HSL.
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Kenyan-specific animations */
+@keyframes kenya-flag-wave {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-2px) rotate(1deg); }
+  50% { transform: translateY(0px) rotate(0deg); }
+  75% { transform: translateY(2px) rotate(-1deg); }
+}
+
+.kenya-flag-animation {
+  animation: kenya-flag-wave 3s ease-in-out infinite;
+}
+
+/* Constitutional compliance indicators */
+.compliance-indicator {
+  @apply relative inline-flex items-center justify-center w-4 h-4 rounded-full;
+}
+
+.compliance-indicator.met {
+  @apply bg-green-500;
+}
+
+.compliance-indicator.pending {
+  @apply bg-yellow-500;
+}
+
+.compliance-indicator.failed {
+  @apply bg-red-500;
+}
+
+.compliance-indicator::after {
+  content: '';
+  @apply absolute inset-0 rounded-full animate-ping;
+}
+
+.compliance-indicator.met::after {
+  @apply bg-green-400;
+}
+
+.compliance-indicator.pending::after {
+  @apply bg-yellow-400;
+}
+
+.compliance-indicator.failed::after {
+  @apply bg-red-400;
 }
