@@ -40,7 +40,7 @@ const ConstitutionalHeader = () => {
               </div>
               <div>
                 <h1 className="text-4xl font-bold">Recall254</h1>
-                <p className="text-green-100 text-lg">Your Constitution. Your Power.</p>
+                <p className="text-green-100 text-lg">"We, the People" - Constitution, 2010</p>
                 <p className="text-sm text-gray-200">Digital Democracy • Legally Compliant • Secure</p>
               </div>
             </div>
