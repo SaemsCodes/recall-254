@@ -104,10 +104,10 @@ const LegalRepository = () => {
                 {doc.summary}
               </p>
 
-              {doc.excerpt && (
+              {'excerpt' in doc && doc.excerpt && (
                 <blockquote className="border-l-4 border-kenya-green/30 pl-4 mb-3 text-sm italic text-gray-600">
                   "{doc.excerpt}"
-                  {doc.citation && (
+                  {'citation' in doc && doc.citation && (
                     <cite className="block text-xs mt-2 not-italic text-gray-500">
                       — {doc.citation}
                     </cite>
@@ -115,7 +115,7 @@ const LegalRepository = () => {
                 </blockquote>
               )}
 
-              {doc.requirements && (
+              {'requirements' in doc && doc.requirements && (
                 <div className="space-y-2">
                   <h5 className="font-semibold text-kenya-black text-sm">Key Requirements:</h5>
                   <ul className="space-y-1">
