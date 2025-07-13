@@ -23,44 +23,51 @@ const KenyaHeatMap = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<CountyData | null>(null);
 
-  // Real data from the provided CSV
-  const countyData: CountyData[] = [
-    {
-      county: "MOMBASA",
-      lat: -4.0435,
-      lng: 39.6682,
-      voters: 641913,
-      constituencies: [
-        { name: "Changamwe", wards: ["port reitz", "kipevu", "airport", "changamwe", "chaani"], voters: 93561 },
-        { name: "Jomvu", wards: ["jomvu kuu", "miritini", "mikindani"], voters: 75085 },
-        { name: "Kisauni", wards: ["mjambere", "junda", "bamburi", "mwakirunge", "mtopanga", "magogoni", "shanzu"], voters: 135276 },
-        { name: "Nyali", wards: ["frere town", "ziwa la ng'ombe", "mkomani", "kongowea", "kadzandani"], voters: 124253 },
-        { name: "Likoni", wards: ["mtongwe", "shika adabu", "bofu", "likoni", "timbwani"], voters: 94764 },
-        { name: "Mvita", wards: ["mji wa kale/makadara", "tudor", "tononoka", "shimanzi/ganjoni", "majengo"], voters: 118974 }
-      ]
-    },
-    {
-      county: "NAIROBI",
-      lat: -1.2864,
-      lng: 36.8172,
-      voters: 2500000,
-      constituencies: [
-        { name: "Westlands", wards: ["kitisuru", "parklands/highridge", "karura", "kangemi", "mountain view"], voters: 160739 },
-        { name: "Dagoretti North", wards: ["kilimani", "kawangware", "gatina", "kileleshwa", "kabiro"], voters: 157659 },
-        { name: "Starehe", wards: ["nairobi central", "ngara", "ziwani/kariokor", "pangani", "landimawe", "nairobi south"], voters: 169575 }
-      ]
-    },
-    {
-      county: "KIAMBU",
-      lat: -1.0314,
-      lng: 36.8685,
-      voters: 1300000,
-      constituencies: [
-        { name: "Gatundu South", wards: ["kiamwangi", "kiganjo", "ndarugu", "ngenda"], voters: 79860 },
-        { name: "Ruiru", wards: ["gitothua", "biashara", "gatongora", "kahawa sukari", "kahawa wendani", "kiuu", "mwiki", "mwihoko"], voters: 172088 }
-      ]
-    }
-  ];
+  // Parse CSV data into structured format
+  const csvData = `MOMBASA,-4.0435,39.6682,93561,Changamwe,"port reitz, kipevu, airport, changamwe, chaani",93561
+MOMBASA,-4.0435,39.6682,93561,Jomvu,"jomvu kuu, miritini, mikindani",75085
+MOMBASA,-4.0435,39.6682,93561,Kisauni,"mjambere, junda, bamburi, mwakirunge, mtopanga, magogoni, shanzu",135276
+MOMBASA,-4.0435,39.6682,93561,Nyali,"frere town, ziwa la ng'ombe, mkomani, kongowea, kadzandani",124253
+MOMBASA,-4.0435,39.6682,93561,Likoni,"mtongwe, shika adabu, bofu, likoni, timbwani",94764
+MOMBASA,-4.0435,39.6682,93561,Mvita,"mji wa kale/makadara, tudor, tononoka, shimanzi/ganjoni, majengo",118974
+NAIROBI,-1.2864,36.8172,160739,Westlands,"kitisuru, parklands/highridge, karura, kangemi, mountain view",160739
+NAIROBI,-1.2864,36.8172,160739,Dagoretti North,"kilimani, kawangware, gatina, kileleshwa, kabiro",157659
+NAIROBI,-1.2864,36.8172,160739,Starehe,"nairobi central, ngara, ziwani/kariokor, pangani, landimawe, nairobi south",169575
+KIAMBU,-1.0314,36.8685,79860,Gatundu South,"kiamwangi, kiganjo, ndarugu, ngenda",79860
+KIAMBU,-1.0314,36.8685,79860,Ruiru,"gitothua, biashara, gatongora, kahawa sukari, kahawa wendani, kiuu, mwiki, mwihoko",172088`;
+
+  const parseCSVData = (): CountyData[] => {
+    const lines = csvData.trim().split('\n');
+    const countiesMap = new Map<string, CountyData>();
+
+    lines.forEach(line => {
+      const [county, lat, lng, , constituency_name, wards, constituency_voters] = line.split(',');
+      const wardsList = wards.replace(/"/g, '').split(', ');
+      
+      if (!countiesMap.has(county)) {
+        countiesMap.set(county, {
+          county: county,
+          lat: parseFloat(lat),
+          lng: parseFloat(lng),
+          voters: 0,
+          constituencies: []
+        });
+      }
+      
+      const countyData = countiesMap.get(county)!;
+      countyData.constituencies.push({
+        name: constituency_name,
+        wards: wardsList,
+        voters: parseInt(constituency_voters)
+      });
+      
+      countyData.voters += parseInt(constituency_voters);
+    });
+
+    return Array.from(countiesMap.values());
+  };
+
+  const countyData = parseCSVData();
 
   const loadGoogleMaps = (): Promise<void> => {
     return new Promise((resolve, reject) => {
@@ -70,7 +77,6 @@ const KenyaHeatMap = () => {
       }
 
       const script = document.createElement('script');
-      // Using a placeholder API key - user needs to replace this
       script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBGne0aJNOqE8oa4Vc4HqZ8X5DZr4KX3hI&libraries=visualization&callback=initMap`;
       script.async = true;
       script.defer = true;
@@ -90,10 +96,10 @@ const KenyaHeatMap = () => {
     clearMarkers();
 
     try {
-      const map = new google.maps.Map(mapRef.current, {
+      const map = new window.google.maps.Map(mapRef.current, {
         zoom: 6,
         center: { lat: -1.2921, lng: 36.8219 },
-        mapTypeId: google.maps.MapTypeId.TERRAIN,
+        mapTypeId: window.google.maps.MapTypeId.TERRAIN,
         styles: [
           {
             featureType: "all",
@@ -111,12 +117,12 @@ const KenyaHeatMap = () => {
       mapInstanceRef.current = map;
 
       countyData.forEach((county) => {
-        const marker = new google.maps.Marker({
+        const marker = new window.google.maps.Marker({
           position: { lat: county.lat, lng: county.lng },
           map: map,
           title: county.county,
           icon: {
-            path: google.maps.SymbolPath.CIRCLE,
+            path: window.google.maps.SymbolPath.CIRCLE,
             scale: Math.sqrt(county.voters / 1000) * 2,
             fillColor: '#10b981',
             fillOpacity: 0.6,
