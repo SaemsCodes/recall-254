@@ -115,6 +115,16 @@ const WardSearchInterface = () => {
     return wards.filter(ward => ward.constituency === constituency).sort((a, b) => a.ward_name.localeCompare(b.ward_name));
   };
 
+  const handleCalculateSignatures = () => {
+    const countyInput = document.querySelector('input[placeholder="County name"]') as HTMLInputElement;
+    const constituencyInput = document.querySelector('input[placeholder="Constituency name"]') as HTMLInputElement;
+    const wardInput = document.querySelector('input[placeholder="Ward name"]') as HTMLInputElement;
+
+    if (countyInput?.value && constituencyInput?.value && wardInput?.value) {
+      calculateSignatureRequirement(countyInput.value, constituencyInput.value, wardInput.value);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Search Interface */}
@@ -189,15 +199,6 @@ const WardSearchInterface = () => {
             <Input
               placeholder="County name"
               className="border-green-200 focus:border-green-400"
-              onBlur={(e) => {
-                if (selectedConstituency && e.target.nextElementSibling?.value) {
-                  calculateSignatureRequirement(
-                    e.target.value,
-                    selectedConstituency,
-                    (e.target.nextElementSibling as HTMLInputElement).value
-                  );
-                }
-              }}
             />
             <Input
               placeholder="Constituency name"
@@ -206,15 +207,15 @@ const WardSearchInterface = () => {
             <Input
               placeholder="Ward name"
               className="border-green-200 focus:border-green-400"
-              onBlur={(e) => {
-                const county = (e.target.parentElement?.firstElementChild as HTMLInputElement)?.value;
-                const constituency = (e.target.previousElementSibling as HTMLInputElement)?.value;
-                if (county && constituency && e.target.value) {
-                  calculateSignatureRequirement(county, constituency, e.target.value);
-                }
-              }}
             />
           </div>
+
+          <Button 
+            onClick={handleCalculateSignatures}
+            className="bg-green-600 hover:bg-green-700 text-white mb-4"
+          >
+            Calculate Required Signatures
+          </Button>
 
           {signatureResult && (
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
