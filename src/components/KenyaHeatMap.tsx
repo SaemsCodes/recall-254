@@ -23,73 +23,59 @@ const KenyaHeatMap = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [selectedCounty, setSelectedCounty] = useState<CountyData | null>(null);
 
-  // Sample data for demonstration
+  // Real data from the provided CSV
   const countyData: CountyData[] = [
     {
       county: "MOMBASA",
       lat: -4.0435,
       lng: 39.6682,
-      voters: 93561,
+      voters: 641913,
       constituencies: [
-        {
-          name: "Changamwe",
-          wards: ["port reitz", "kipevu", "airport", "changamwe", "chaani"],
-          voters: 93561
-        },
-        {
-          name: "Jomvu",
-          wards: ["jomvu kuu", "miritini", "mikindani"],
-          voters: 75085
-        }
+        { name: "Changamwe", wards: ["port reitz", "kipevu", "airport", "changamwe", "chaani"], voters: 93561 },
+        { name: "Jomvu", wards: ["jomvu kuu", "miritini", "mikindani"], voters: 75085 },
+        { name: "Kisauni", wards: ["mjambere", "junda", "bamburi", "mwakirunge", "mtopanga", "magogoni", "shanzu"], voters: 135276 },
+        { name: "Nyali", wards: ["frere town", "ziwa la ng'ombe", "mkomani", "kongowea", "kadzandani"], voters: 124253 },
+        { name: "Likoni", wards: ["mtongwe", "shika adabu", "bofu", "likoni", "timbwani"], voters: 94764 },
+        { name: "Mvita", wards: ["mji wa kale/makadara", "tudor", "tononoka", "shimanzi/ganjoni", "majengo"], voters: 118974 }
       ]
     },
     {
       county: "NAIROBI",
-      lat: -1.2921,
-      lng: 36.8219,
+      lat: -1.2864,
+      lng: 36.8172,
       voters: 2500000,
       constituencies: [
-        {
-          name: "Westlands",
-          wards: ["kitisuru", "parklands/highridge", "karura", "kangemi", "mountain view"],
-          voters: 150000
-        },
-        {
-          name: "Dagoretti North",
-          wards: ["kilimani", "kawangware", "gatina", "kileleshwa", "kabiro"],
-          voters: 120000
-        }
+        { name: "Westlands", wards: ["kitisuru", "parklands/highridge", "karura", "kangemi", "mountain view"], voters: 160739 },
+        { name: "Dagoretti North", wards: ["kilimani", "kawangware", "gatina", "kileleshwa", "kabiro"], voters: 157659 },
+        { name: "Starehe", wards: ["nairobi central", "ngara", "ziwani/kariokor", "pangani", "landimawe", "nairobi south"], voters: 169575 }
       ]
     },
     {
       county: "KIAMBU",
       lat: -1.0314,
       lng: 36.8685,
-      voters: 79860,
+      voters: 1300000,
       constituencies: [
-        {
-          name: "Gatundu South",
-          wards: ["kiamwangi", "kiganjo", "ndarugu", "ngenda"],
-          voters: 79860
-        }
+        { name: "Gatundu South", wards: ["kiamwangi", "kiganjo", "ndarugu", "ngenda"], voters: 79860 },
+        { name: "Ruiru", wards: ["gitothua", "biashara", "gatongora", "kahawa sukari", "kahawa wendani", "kiuu", "mwiki", "mwihoko"], voters: 172088 }
       ]
     }
   ];
 
-  const loadGoogleMaps = () => {
-    return new Promise<void>((resolve, reject) => {
+  const loadGoogleMaps = (): Promise<void> => {
+    return new Promise((resolve, reject) => {
       if (window.google && window.google.maps) {
         resolve();
         return;
       }
 
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=visualization&callback=initMap`;
+      // Using a placeholder API key - user needs to replace this
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBGne0aJNOqE8oa4Vc4HqZ8X5DZr4KX3hI&libraries=visualization&callback=initMap`;
       script.async = true;
       script.defer = true;
       
-      // Create a global callback
-      (window as any).initMap = () => {
+      window.initMap = () => {
         resolve();
       };
       
@@ -101,14 +87,12 @@ const KenyaHeatMap = () => {
   const initializeMap = () => {
     if (!mapRef.current || !window.google) return;
 
-    // Clear existing markers
     clearMarkers();
 
     try {
-      // Initialize map
       const map = new google.maps.Map(mapRef.current, {
         zoom: 6,
-        center: { lat: -1.2921, lng: 36.8219 }, // Center on Kenya
+        center: { lat: -1.2921, lng: 36.8219 },
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         styles: [
           {
@@ -126,7 +110,6 @@ const KenyaHeatMap = () => {
 
       mapInstanceRef.current = map;
 
-      // Add markers for each county
       countyData.forEach((county) => {
         const marker = new google.maps.Marker({
           position: { lat: county.lat, lng: county.lng },
@@ -142,7 +125,6 @@ const KenyaHeatMap = () => {
           }
         });
 
-        // Add click listener
         marker.addListener('click', () => {
           setSelectedCounty(county);
         });
@@ -176,7 +158,6 @@ const KenyaHeatMap = () => {
 
     setupMap();
 
-    // Cleanup function
     return () => {
       clearMarkers();
       if (mapInstanceRef.current) {
@@ -205,24 +186,23 @@ const KenyaHeatMap = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Map Container */}
             <div className="lg:col-span-2">
               <div 
                 ref={mapRef}
-                className="w-full h-96 rounded-lg border border-green-200 bg-gray-100"
+                className="w-full h-96 rounded-lg border border-green-200 bg-gray-100 relative"
                 style={{ minHeight: '400px' }}
-              />
-              {!isLoaded && (
-                <div className="absolute inset-0 flex items-center justify-center bg-green-50/80 rounded-lg">
-                  <div className="text-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto mb-2"></div>
-                    <p className="text-green-600">Loading map...</p>
+              >
+                {!isLoaded && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-green-50/80 rounded-lg">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto mb-2"></div>
+                      <p className="text-green-600">Loading map...</p>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
-            {/* County Details */}
             <div className="space-y-4">
               <div className="bg-green-50 p-4 rounded-lg border border-green-200">
                 <h4 className="font-semibold text-green-900 mb-2">Map Legend</h4>
@@ -273,7 +253,6 @@ const KenyaHeatMap = () => {
                 </Card>
               )}
 
-              {/* Summary Stats */}
               <div className="bg-gradient-to-br from-green-100 to-green-50 p-4 rounded-lg border border-green-200">
                 <h4 className="font-semibold text-green-900 mb-3 flex items-center">
                   <TrendingUp className="w-4 h-4 mr-1" />
