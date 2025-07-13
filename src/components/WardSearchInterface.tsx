@@ -70,11 +70,11 @@ const WardSearchInterface = () => {
       );
     }
 
-    if (selectedCounty) {
+    if (selectedCounty && selectedCounty !== 'all') {
       filtered = filtered.filter(ward => ward.county === selectedCounty);
     }
 
-    if (selectedConstituency) {
+    if (selectedConstituency && selectedConstituency !== 'all') {
       filtered = filtered.filter(ward => ward.constituency === selectedConstituency);
     }
 
@@ -157,7 +157,7 @@ const WardSearchInterface = () => {
                 <SelectValue placeholder="Select County" />
               </SelectTrigger>
               <SelectContent className="bg-white border-green-200">
-                <SelectItem value="">All Counties</SelectItem>
+                <SelectItem value="all">All Counties</SelectItem>
                 {getUniqueCounties().map(county => (
                   <SelectItem key={county} value={county}>{county}</SelectItem>
                 ))}
@@ -167,14 +167,14 @@ const WardSearchInterface = () => {
             <Select 
               value={selectedConstituency} 
               onValueChange={setSelectedConstituency}
-              disabled={!selectedCounty}
+              disabled={!selectedCounty || selectedCounty === 'all'}
             >
               <SelectTrigger className="border-green-200 focus:border-green-400">
                 <SelectValue placeholder="Select Constituency" />
               </SelectTrigger>
               <SelectContent className="bg-white border-green-200">
-                <SelectItem value="">All Constituencies</SelectItem>
-                {selectedCounty && getConstituenciesByCounty(selectedCounty).map(constituency => (
+                <SelectItem value="all">All Constituencies</SelectItem>
+                {selectedCounty && selectedCounty !== 'all' && getConstituenciesByCounty(selectedCounty).map(constituency => (
                   <SelectItem key={constituency} value={constituency}>{constituency}</SelectItem>
                 ))}
               </SelectContent>
